@@ -3,19 +3,22 @@
 namespace net
 {
 	Address::Address() 
-		: m_protocol(NetworkProtocol::Unknown)
+		: m_address()
+		, m_protocol(NetworkProtocol::Unknown)
 	{
 
 	}
 
 	Address::Address(const std::string& ip, const port_t port, const NetworkProtocol protocol)
-		: m_protocol(protocol)
+		: m_address()
+		, m_protocol(protocol)
 	{
 		initialize(ip, port, protocol);
 	}
 
 	Address::Address(const std::string& address, const NetworkProtocol protocol)
-		: m_protocol(protocol)
+		: m_address()
+		, m_protocol(protocol)
 	{
 		const auto separator = address.find_last_of(':');
 

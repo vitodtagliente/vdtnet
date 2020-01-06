@@ -2,6 +2,7 @@
 
 #pragma once 
 
+#include <cassert>
 #include <cstddef>
 #include <memory>
 #include <vector>
@@ -24,11 +25,11 @@ namespace net
 	{
 	public:
 
-		MemoryStream() : m_buffer() {}
-		MemoryStream(const std::size_t size) : m_buffer(size) {}
-		MemoryStream(const MemoryBuffer& buffer) : m_buffer{ buffer } {}
+		MemoryStream();
+		MemoryStream(const std::size_t size);
+		MemoryStream(const MemoryBuffer& buffer);
 		MemoryStream(const MemoryStream& stream) = delete;
-		~MemoryStream() = default;
+		virtual ~MemoryStream() = default;
 
 		inline const MemoryBuffer& getBuffer() const { return m_buffer; }
 		inline const uint32_t* getData() const { return m_buffer.data(); }
@@ -41,7 +42,7 @@ namespace net
 		// buffer of bytes
 		MemoryBuffer m_buffer;
 		// word index
-		uint32_t m_wordIndex{ 0 };
+		uint32_t m_wordIndex;
 
 		static constexpr std::size_t bits_per_byte = 8;
 		static constexpr std::size_t bits_per_word = sizeof(uint32_t) * bits_per_byte;
@@ -52,8 +53,8 @@ namespace net
 	{
 	public:
 
-		OutputMemoryStream() : MemoryStream(1) {}
-		OutputMemoryStream(const std::size_t size) : MemoryStream(size) {}
+		OutputMemoryStream();
+		OutputMemoryStream(const std::size_t size);
 
 		template<typename T>
 		void write(T data, const std::size_t bits = sizeof(T) * bits_per_byte)
@@ -117,33 +118,21 @@ namespace net
 			}
 		}
 
-		void flush()
-		{
-			if (m_offset > 0)
-			{
-				assert(m_offset < bits_per_word);
-				m_buffer[m_wordIndex] = uint32_t(m_scratch);
-				m_scratch = m_offset = 0;
-			}
-		}
+		void flush();
 
 	private:
 
 		// used to store temporary bits
-		uint64_t m_scratch{ 0 };
+		uint64_t m_scratch;
 		// scratch bit offset
-		std::size_t m_offset{ 0 };
+		std::size_t m_offset;
 	};
 
 	class InputMemoryStream : public MemoryStream
 	{
 	public:
 
-		InputMemoryStream(const MemoryBuffer& buffer) : MemoryStream(buffer) 
-		{
-			m_scratch = m_buffer[m_wordIndex];
-			m_offset = bits_per_word;
-		}
+		InputMemoryStream(const MemoryBuffer& buffer);
 
 		template<typename T>
 		bool read(T& data, const std::size_t bits = sizeof(T) * bits_per_byte)
@@ -208,7 +197,7 @@ namespace net
 
 	private:
 
-		static constexpr uint64_t one = uint64_t(1);
+		static constexpr uint64_t one{1};
 
 		// used to store temporary bits
 		uint64_t m_scratch;

@@ -3,7 +3,9 @@
 namespace net
 {
 	Socket::Socket(const Address& address, const TransportProtocol protocol)
-		: m_address(address), m_protocol(protocol)
+		: m_socket()
+		, m_address(address)
+		, m_protocol(protocol)
 	{
 		m_type = (protocol == TransportProtocol::TCP) ? Type::Stream : Type::Datagram;
 		m_socket = ::socket(
@@ -14,7 +16,9 @@ namespace net
 	}
 
 	Socket::Socket(const native_socket_t socket, const Address& address, const TransportProtocol protocol)
-		: m_socket(socket), m_address(address), m_protocol(protocol)
+		: m_socket(socket)
+		, m_address(address)
+		, m_protocol(protocol)
 	{
 		m_type = (protocol == TransportProtocol::TCP) ? Type::Stream : Type::Datagram;
 	}

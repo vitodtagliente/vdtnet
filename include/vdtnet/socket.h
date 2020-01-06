@@ -121,7 +121,7 @@ namespace net
 	protected:
 
 		// native socket type
-		native_socket_t m_socket{};
+		native_socket_t m_socket;
 		// socket address
 		Address m_address;
 		// socket type

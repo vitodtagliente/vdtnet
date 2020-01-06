@@ -58,7 +58,7 @@ namespace net
 	protected:
 
 		// native address type
-		native_addr_t m_address{};
+		native_addr_t m_address;
 		// network protocol
 		NetworkProtocol m_protocol;
 
