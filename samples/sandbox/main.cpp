@@ -6,7 +6,11 @@ using namespace net;
 
 int main()
 {
-	
+	net::startup();
+
+
+
+	net::shutdown();
 
 	return getchar();
 }
