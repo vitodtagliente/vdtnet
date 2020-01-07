@@ -21,8 +21,12 @@ namespace net
 	{
 	public:
 
-		ByteStream() : m_buffer{} {}
-		ByteStream(const ByteBuffer& buffer) : m_buffer{ buffer } {}
+		ByteStream() 
+			: m_buffer{} 
+		{}
+		ByteStream(const ByteBuffer& buffer) 
+			: m_buffer{ buffer } 
+		{}
 
 		inline const ByteBuffer& getBuffer() const { return m_buffer; }
 		inline const std::byte* getNativeBuffer() const { return m_buffer.data(); }
@@ -40,7 +44,9 @@ namespace net
 	{
 	public:
 
-		OutputByteStream() : ByteStream() {}
+		OutputByteStream() 
+			: ByteStream() 
+		{}
 
 		template<typename T>
 		OutputByteStream& operator<< (const T data)
@@ -63,10 +69,10 @@ namespace net
 	{
 	public:
 
-		InputByteStream(const ByteBuffer& buffer) : ByteStream(buffer), m_index{ 0 }
-		{
-
-		}
+		InputByteStream(const ByteBuffer& buffer) 
+			: ByteStream(buffer)
+			, m_index{ 0 }
+		{}
 
 		template<typename T>
 		InputByteStream& operator>> (T& data)

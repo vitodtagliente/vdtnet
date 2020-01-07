@@ -9,6 +9,5 @@
 #include "endianness.h"
 #include "memory_stream.h"
 #include "platform.h"
-#include "serialization.h"
 #include "socket.h"
 #include "string.h"

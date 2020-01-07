@@ -25,9 +25,21 @@ namespace net
 	{
 	public:
 
-		MemoryStream();
-		MemoryStream(const std::size_t size);
-		MemoryStream(const MemoryBuffer& buffer);
+		MemoryStream()
+			: m_buffer()
+			, m_wordIndex()
+		{}
+
+		MemoryStream(const std::size_t size)
+			: m_buffer(size)
+			, m_wordIndex()
+		{}
+
+		MemoryStream(const MemoryBuffer& buffer)
+			: m_buffer(buffer)
+			, m_wordIndex()
+		{}
+
 		MemoryStream(const MemoryStream& stream) = delete;
 		virtual ~MemoryStream() = default;
 
@@ -53,8 +65,17 @@ namespace net
 	{
 	public:
 
-		OutputMemoryStream();
-		OutputMemoryStream(const std::size_t size);
+		OutputMemoryStream()
+			: MemoryStream(1)
+			, m_scratch()
+			, m_offset()
+		{}
+
+		OutputMemoryStream(const std::size_t size)
+			: MemoryStream(size)
+			, m_scratch()
+			, m_offset()
+		{}
 
 		template<typename T>
 		void write(T data, const std::size_t bits = sizeof(T) * bits_per_byte)
@@ -118,7 +139,15 @@ namespace net
 			}
 		}
 
-		void flush();
+		void flush()
+		{
+			if (m_offset > 0)
+			{
+				assert(m_offset < bits_per_word);
+				m_buffer[m_wordIndex] = uint32_t(m_scratch);
+				m_scratch = m_offset = 0;
+			}
+		}
 
 	private:
 
@@ -132,7 +161,11 @@ namespace net
 	{
 	public:
 
-		InputMemoryStream(const MemoryBuffer& buffer);
+		InputMemoryStream(const MemoryBuffer& buffer)
+			: MemoryStream(buffer)
+			, m_scratch(m_buffer[m_wordIndex])
+			, m_offset(bits_per_word)
+		{}
 
 		template<typename T>
 		bool read(T& data, const std::size_t bits = sizeof(T) * bits_per_byte)
