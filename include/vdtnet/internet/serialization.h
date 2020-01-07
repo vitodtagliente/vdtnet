@@ -5,7 +5,7 @@
 #include <string>
 #include <unordered_map>
 #include "message.h"
-#include "../string.h"
+#include "../utils/string.h"
 
 namespace net
 {
@@ -62,7 +62,7 @@ namespace net
 		bool deserialize(std::unordered_map<std::string, std::string>& headers, const std::string& source)
 		{
 			headers.clear();
-			for (const auto& line : starnet::string(source).getLines())
+			for (const auto& line : net::string(source).getLines())
 			{
 				const auto& position = line.find(':');
 				if (position != std::string::npos)

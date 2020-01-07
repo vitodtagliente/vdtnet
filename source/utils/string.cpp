@@ -1,4 +1,4 @@
-#include <vdtnet/string.h>
+#include <vdtnet/utils/string.h>
 
 #include <algorithm>
 #include <cctype>
@@ -12,47 +12,47 @@ namespace net
 
 	}
 
-	string::string(const std::string& t_str)
-		: std::string(t_str)
+	string::string(const std::string& str)
+		: std::string(str)
 	{
 
 	}
 
-	std::vector<string> string::split(const char t_delimiter) const
+	std::vector<string> string::split(const char delimiter) const
 	{
 		std::vector<string> tokens;
 		string token;
 		std::istringstream tokenStream(*this);
-		while (std::getline(tokenStream, token, t_delimiter))
+		while (std::getline(tokenStream, token, delimiter))
 		{
 			tokens.push_back(token);
 		}
 		return tokens;
 	}
 
-	bool string::contains(const char t_match) const
+	bool string::contains(const char match) const
 	{
-		return find(t_match) != std::string::npos;
+		return find(match) != std::string::npos;
 	}
 
-	bool string::contains(const std::string& t_match) const
+	bool string::contains(const std::string& match) const
 	{
-		return find(t_match) != std::string::npos;
+		return find(match) != std::string::npos;
 	}
 
-	bool string::startsWith(const std::string& t_match,	const CompareMode t_mode) const
+	bool string::startsWith(const std::string& match,	const CompareMode mode) const
 	{
-		if (t_mode == CompareMode::CaseSensitive)
+		if (mode == CompareMode::CaseSensitive)
 		{
-			return find(t_match) == 0;
+			return find(match) == 0;
 		}
 		else
 		{
-			return toLower().find(string(t_match).toLower()) == 0;
+			return toLower().find(string(match).toLower()) == 0;
 		}
 	}
 
-	bool string::endsWith(const std::string& t_match, const CompareMode t_mode) const
+	bool string::endsWith(const std::string& match, const CompareMode mode) const
 	{
 		return false;
 	}
@@ -76,9 +76,9 @@ namespace net
 		return rtrim().ltrim();
 	}
 
-	string string::trim(const char t_char) const
+	string string::trim(const char character) const
 	{
-		return rtrim(t_char).ltrim(t_char); 
+		return rtrim(character).ltrim(character); 
 	}
 
 	string string::ltrim() const
@@ -94,14 +94,14 @@ namespace net
 		return result;
 	}
 
-	string string::ltrim(const char t_char) const
+	string string::ltrim(const char character) const
 	{
 		string result(*this);
 		auto it2 = std::find_if(
 			result.begin(),
 			result.end(),
-			[t_char](char ch)
-			{ return ch != t_char; }
+			[character](char ch)
+			{ return ch != character; }
 		);
 		result.erase(result.begin(), it2);
 		return result;
@@ -120,14 +120,14 @@ namespace net
 		return result;
 	}
 
-	string string::rtrim(const char t_char) const
+	string string::rtrim(const char character) const
 	{
 		string result(*this);
 		auto it1 = std::find_if(
 			result.rbegin(),
 			result.rend(),
-			[t_char](char ch)
-			{ return ch != t_char; }
+			[character](char ch)
+			{ return ch != character; }
 		);
 		result.erase(it1.base(), result.end());
 		return result;

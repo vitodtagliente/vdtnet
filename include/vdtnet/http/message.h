@@ -8,7 +8,7 @@
 #include "../internet/message.h"
 #include "headers.h"
 #include "url.h"
-#include "../string.h"
+#include "../utils/string.h"
 
 namespace net
 {
@@ -86,7 +86,7 @@ namespace net
 				internet::message_t<Headers, Body>::parse(source);
 
 			// parse status code and description
-			const auto& components = starnet::string(source).getFirstLine().split(' ');
+			const auto& components = net::string(source).getFirstLine().split(' ');
 			if (components.size() > 0) Header::value(components[0], response.version);
 			if (components.size() > 1) Header::value(components[1], response.code);
 			if (components.size() > 2) response.description = components[2];
