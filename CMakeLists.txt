@@ -1,11 +1,10 @@
 cmake_minimum_required(VERSION 3.2)
+if(TARGET vdtnet)
+	return()
+endif()
 project(vdtnet)
 
-enable_testing()
-
 set(CMAKE_CXX_STANDARD 17)
-
-include_directories(include)
 
 file(GLOB_RECURSE PROJECT_HEADERS "include/vdtnet/*.h") 
 file(GLOB_RECURSE PROJECT_SOURCES "source/*.cpp")
@@ -30,3 +29,5 @@ add_library(
     ${PROJECT_HEADERS}
     ${PROJECT_SOURCES} 
 )
+
+target_include_directories(${PROJECT_NAME} PUBLIC include)
