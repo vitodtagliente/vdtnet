@@ -10,4 +10,3 @@
 #include "memory_stream.h"
 #include "platform.h"
 #include "socket.h"
-#include "string.h"
