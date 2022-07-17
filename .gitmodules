@@ -1,3 +1,0 @@
-[submodule "engine/vendor/vdtnet"]
-	path = engine/vendor/vdtnet
-	url = https://github.com/vitodtagliente/vdtnet
