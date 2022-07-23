@@ -12,8 +12,8 @@
 	This means they flush bytes to memory as they are filled. 
 	This is simpler to code, but the ideal is to read and write words at a time, 
 	because modern machines are optimized to work this way instead of farting across a buffer 
-	at byte level like it’s 1985.
-	If you want to write 32 bits at a time, you’ll need a scratch word twice that size, eg. uint64_t,
+	at byte level like it's 1985.
+	If you want to write 32 bits at a time, you'll need a scratch word twice that size, eg. uint64_t,
 	for caching reasons.
 */
 
