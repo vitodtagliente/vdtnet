@@ -50,6 +50,7 @@ namespace net
 		bool isValid() const;
 		inline operator bool() const { return isValid(); }
 
+		Address& operator= (const Address& other);
 		inline bool operator== (const Address& other) const;
 		inline bool operator!= (const Address& other) const;
 

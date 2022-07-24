@@ -76,6 +76,13 @@ namespace net
 		return m_protocol != NetworkProtocol::Unknown;
 	}
 
+	Address& Address::operator=(const Address& other)
+	{
+		m_address = other.m_address;
+		m_protocol = other.m_protocol;
+		return *this;
+	}
+
 	bool Address::operator== (const Address& other) const
 	{
 		// #todo: to be implemented

@@ -105,7 +105,7 @@ namespace net
 		bool sendTo(const Address& address, const uint8_t* data, const std::size_t count, int32_t& byteSent);
 
 		bool receive(uint8_t* data, std::size_t bufferSize, int32_t& bytesRead);
-		bool receiveFrom(const Address& address, uint8_t* data, std::size_t bufferSize, int32_t& bytesRead);
+		bool receiveFrom(Address& address, uint8_t* data, std::size_t bufferSize, int32_t& bytesRead);
 
 		bool setNonBlockingMode(const bool isNonBlocking = true);
 		bool setBroadcastMode(const bool isBroadcast = true);
